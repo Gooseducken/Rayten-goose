@@ -1,75 +1,25 @@
-﻿using Content.Shared.Containers.ItemSlots;
-using Robust.Shared.Audio;
+using Content.Shared.Containers.ItemSlots;
 using Robust.Shared.GameStates;
-using Robust.Shared.Serialization;
+using Robust.Shared.Audio;
 
-namespace Content.Shared._Rayten.TapePlayer;
+namespace Content.Shared._Adventure.TapePlayer;
 
-[NetworkedComponent, RegisterComponent, AutoGenerateComponentState(true)]
-[Access(typeof(SharedTapePlayerSystem))]
+[RegisterComponent, NetworkedComponent]
 public sealed partial class TapePlayerComponent : Component
 {
-    public const string TapeSlotId = "tape";
+    public EntityUid? AudioStream = default;
 
-    [DataField, AutoNetworkedField]
-    public EntityUid? AudioStream;
+    public bool Played = false;
 
-    [DataField, AutoNetworkedField]
-    public EntityUid? InsertedTape;
-
-    [DataField(required: true)]
+    [DataField("tapeSlot"), ViewVariables(VVAccess.ReadWrite)]
     public ItemSlot TapeSlot = new();
 
-    [DataField, AutoNetworkedField]
-    [ViewVariables]
-    public float Volume = 0.5f;
+    [DataField("volume"), ViewVariables(VVAccess.ReadWrite)]
+    public float Volume;
 
-    [DataField]
-    [ViewVariables]
-    public float IncreaceVolume = 10f;
-
-    [DataField]
-    [ViewVariables(VVAccess.ReadWrite)]
+    [DataField("rolloffFactor"), ViewVariables(VVAccess.ReadWrite)]
     public float RolloffFactor = 1f;
 
-    [DataField]
-    [ViewVariables(VVAccess.ReadWrite)]
-    public float MaxDistance = 15f;
-
-    [DataField]
-    public bool Loop = true;
-
-    [DataField]
-    public SoundSpecifier? ButtonSound;
-}
-
-[Serializable, NetSerializable]
-public sealed class TapePlayerPlayingMessage : BoundUserInterfaceMessage;
-
-[Serializable, NetSerializable]
-public sealed class TapePlayerPauseMessage : BoundUserInterfaceMessage;
-
-[Serializable, NetSerializable]
-public sealed class TapePlayerStopMessage : BoundUserInterfaceMessage;
-
-[Serializable, NetSerializable]
-public sealed class TapePlayerSetTimeMessage(float songTime) : BoundUserInterfaceMessage
-{
-    public float SongTime { get; } = songTime;
-}
-[Serializable, NetSerializable]
-public sealed class TapePlayerSetVolumeMessage(float volume) : BoundUserInterfaceMessage
-{
-    public float Volume { get; } = volume;
-}
-
-[Serializable, NetSerializable]
-public enum TapePlayerVisuals : byte
-{
-    VisualState,
-}
-
-public enum TapePlayerVisualLayers : byte
-{
-    Base,
+    [DataField("maxDistance"), ViewVariables(VVAccess.ReadWrite)]
+    public float MaxDistance = 20f;
 }

@@ -1,15 +1,11 @@
-﻿using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
+using Robust.Shared.Audio;
 
-namespace Content.Shared._Rayten.TapePlayer
+namespace Content.Shared._Adventure.TapePlayer;
+
+[RegisterComponent, NetworkedComponent]
+public sealed partial class MusicTapeComponent : Component
 {
-    [RegisterComponent, NetworkedComponent]
-    public sealed partial class MusicTapeComponent : Component
-    {
-        [DataField(customTypeSerializer: typeof(SoundSpecifierTypeSerializer), required: true)]
-        public SoundSpecifier Sound;
-
-        [DataField]
-        public string Song_name = "";
-    }
+    [DataField("sound", customTypeSerializer: typeof(SoundSpecifierTypeSerializer))]
+    public SoundSpecifier? Sound;
 }

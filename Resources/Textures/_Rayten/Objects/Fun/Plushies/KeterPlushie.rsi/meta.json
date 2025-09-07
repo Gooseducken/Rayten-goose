@@ -1,0 +1,41 @@
+{
+    "version": 1,
+    "license": "",
+    "copyright": "",
+    "size": {
+        "x": 32,
+        "y": 32
+    },
+    "states": [
+        {
+            "name": "plushie_lizard"
+        },
+        {
+            "name": "inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "inhand-right",
+            "directions": 4
+        },
+        {
+            "name": "equipped-HELMET",
+            "directions": 4
+        },
+        {
+            "name": "plushie_lizard_alt"
+        },
+        {
+            "name": "inhand-left-alt",
+            "directions": 4
+        },
+        {
+            "name": "inhand-right-alt",
+            "directions": 4
+        },
+        {
+            "name": "equipped-HELMET-alt",
+            "directions": 4
+        }
+    ]
+}
